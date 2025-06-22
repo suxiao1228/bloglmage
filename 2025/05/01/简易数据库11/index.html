@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>简易数据库11 | 蓝</title><meta name="author" content="蓝"><meta name="copyright" content="蓝"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言VM是基于两段锁协议实现调度序列的可串行化，并实现了MVCC以消除读写阻塞。同时也实现了两种隔离级别，所以我们还需要明确版本的概念；DM 层向上层提供了数据项（Data Item）的概念，VM 通过管理所有的数据项，向上层提供了记录（Entry）的概念。上层模块通过 VM 操作数据的最小单位，就是记录。VM 则在其内部，为每个记录，维护了多个版本（Version）。每当上层模块对某个记录进行修">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简易数据库11">
+<meta property="og:url" content="http://1.94.165.213/2025/05/01/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9311/index.html">
+<meta property="og:site_name" content="蓝">
+<meta property="og:description" content="前言VM是基于两段锁协议实现调度序列的可串行化，并实现了MVCC以消除读写阻塞。同时也实现了两种隔离级别，所以我们还需要明确版本的概念；DM 层向上层提供了数据项（Data Item）的概念，VM 通过管理所有的数据项，向上层提供了记录（Entry）的概念。上层模块通过 VM 操作数据的最小单位，就是记录。VM 则在其内部，为每个记录，维护了多个版本（Version）。每当上层模块对某个记录进行修">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1.94.165.213/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-05-01T09:31:14.274Z">
+<meta property="article:modified_time" content="2025-05-01T09:31:30.452Z">
+<meta property="article:author" content="蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://1.94.165.213/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1.94.165.213/2025/05/01/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9311/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '简易数据库11',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">蓝</span></a><a class="nav-page-title" href="/"><span class="site-name">简易数据库11</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">简易数据库11</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-05-01T09:31:14.274Z" title="Created 2025-05-01 17:31:14">2025-05-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-05-01T09:31:30.452Z" title="Updated 2025-05-01 17:31:30">2025-05-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>VM是基于两段锁协议实现调度序列的可串行化，并实现了MVCC以消除读写阻塞。同时也实现了两种隔离级别，所以我们还需要明确版本的概念；<br>DM 层向上层提供了数据项（Data Item）的概念，VM 通过管理所有的数据项，向上层提供了记录（Entry）的概念。上层模块通过 VM 操作数据的最小单位，就是记录。VM 则在其内部，为每个记录，维护了多个版本（Version）。每当上层模块对某个记录进行修改时，VM 就会为这个记录创建一个新的版本。</p>
+<h3 id="如何实现版本记录"><a href="#如何实现版本记录" class="headerlink" title="如何实现版本记录"></a>如何实现版本记录</h3><h4 id="Entry格式数据"><a href="#Entry格式数据" class="headerlink" title="Entry格式数据"></a>Entry格式数据</h4><p>[XMIN]  [XMAX] [DATA]</p>
+<p><strong>1.XMIN</strong>是创建该条记录（版本）的事务编号</p>
+<p><strong>2.XMAX</strong>则是删除该条记录（版本）的事务编号</p>
+<p><strong>3.DATA</strong>就是这条记录持有的数据</p>
+<h4 id="Entry结构"><a href="#Entry结构" class="headerlink" title="Entry结构"></a>Entry结构</h4><p>对于一条记录来说，MYDB 使用 <code>Entry</code> 类维护了其结构。虽然理论上，MVCC 实现了多版本，但是在实现中，VM 并没有提供 Update 操作，对于字段的更新操作由后面的表和字段管理（TBM）实现。所以在 VM 的实现中，一条记录只有一个版本。	<strong>由于一条记录存储在一条 Data Item 中，所以 Entry 中保存一个 DataItem 的引用即可：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * VM向上层抽象出entry</span></span><br><span class="line"><span class="comment"> * entry结构：</span></span><br><span class="line"><span class="comment"> * [XMIN] [XMAX] [data]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    <span class="comment">//XMIN:创建该条记录（版本）的事务编号</span></span><br><span class="line">    <span class="comment">//XMAX:删除该条记录（版本）的事务编号</span></span><br><span class="line">    <span class="comment">//DATA:是这条记录持有的数据</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Entry</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">OF_XMIN</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//定义了XMIN的偏移量为0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">OF_XMAX</span> <span class="operator">=</span> OF_XMIN+<span class="number">8</span>;<span class="comment">// 定义了XMAX的偏移量为XMIN偏移量后的8个字节</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">OF_DATA</span> <span class="operator">=</span> OF_XMAX+<span class="number">8</span>;<span class="comment">// 定义了DATA的偏移量为XMAX偏移量后的8个字节</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> uid;<span class="comment">//uid字段，用来唯一标识一个Entry的</span></span><br><span class="line">    <span class="keyword">private</span> DataItem dataItem;<span class="comment">//DataItem对象，用来存储数据</span></span><br><span class="line">    <span class="keyword">private</span> VersionManager vm;<span class="comment">// VersionManager对象，用来管理版本的</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Entry <span class="title function_">newEntry</span><span class="params">(VersionManager vm, DataItem dataItem, <span class="type">long</span> uid)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (dataItem == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Entry</span> <span class="variable">entry</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Entry</span>();</span><br><span class="line">        entry.uid = uid;</span><br><span class="line">        entry.dataItem = dataItem;</span><br><span class="line">        entry.vm = vm;</span><br><span class="line">        <span class="keyword">return</span> entry;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//静态方法，用来加载一个Entry.它首先从VersionManager中读取数据，然后创建一个新的Entry</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Entry <span class="title function_">loadEntry</span><span class="params">(VersionManager vm, <span class="type">long</span> uid)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">DataItem</span> <span class="variable">di</span> <span class="operator">=</span> ((VersionManagerImpl)vm).dm.read(uid);</span><br><span class="line">        <span class="keyword">return</span> newEntry(vm, di, uid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用来移除一个Entry, 它通过调用dataItem的release方法来实现</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">()</span> &#123;</span><br><span class="line">        dataItem.release();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="日志格式操作"><a href="#日志格式操作" class="headerlink" title="日志格式操作"></a>日志格式操作</h4><h5 id="wrapEntryRaw"><a href="#wrapEntryRaw" class="headerlink" title="wrapEntryRaw()"></a>wrapEntryRaw()</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 生成日志格式数据</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> xid</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> data</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] wrapEntryRaw(<span class="type">long</span> xid, <span class="type">byte</span>[] data) &#123;</span><br><span class="line">    <span class="type">byte</span>[] xmin = Parser.long2Byte(xid);<span class="comment">// 将事务id转为8字节数组</span></span><br><span class="line">    <span class="type">byte</span>[] xmax = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">8</span>];<span class="comment">// 创建一个空的8字节数组，等待版本修改或删除是才修改</span></span><br><span class="line">    <span class="keyword">return</span> Bytes.concat(xmin, xmax, data);<span class="comment">// 拼接成日志格式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="data"><a href="#data" class="headerlink" title="data()"></a>data()</h5><p>获取记录中持有的数据，也就需要按照上面这个结构来解析：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取记录中持有的数据，也就需要按照上面这个结构来解析</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//以拷贝的形式返回内容</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">byte</span>[] data() &#123;</span><br><span class="line">    dataItem.rLock();<span class="comment">// 加锁，确保数据安全</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">SubArray</span> <span class="variable">sa</span> <span class="operator">=</span> dataItem.data();<span class="comment">// 获取日志数据</span></span><br><span class="line">        <span class="type">byte</span>[] data = <span class="keyword">new</span> <span class="title class_">byte</span>[sa.end - sa.start - OF_DATA];<span class="comment">// 创建一个去除前16字节的数组，因为前16字节表示 xmin and xmax</span></span><br><span class="line">        System.arraycopy(sa.raw, sa.start+OF_DATA, data, <span class="number">0</span>, data.length);<span class="comment">// 拷贝数据到data数组上</span></span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        dataItem.rUnLock();<span class="comment">//释放锁</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="setXmax"><a href="#setXmax" class="headerlink" title="setXmax()"></a>setXmax()</h5><p>当需要对数据进行修改时，就需要设置 <code>xmax</code>的值；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当需要对数据进行修改时，就需要设置xmax的值</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> xid</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setXmax</span><span class="params">(<span class="type">long</span> xid)</span> &#123;</span><br><span class="line">    dataItem.before();<span class="comment">// 在修改或删除之前先拷贝好旧数值</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">SubArray</span> <span class="variable">sa</span> <span class="operator">=</span> dataItem.data();<span class="comment">// 获取需要删除的日志数据</span></span><br><span class="line">        System.arraycopy(Parser.long2Byte(xid), <span class="number">0</span>, sa.raw, sa.start+OF_XMAX, <span class="number">8</span>);<span class="comment">// 将事务编号拷贝到 8~15 处字节</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        dataItem.after(xid);<span class="comment">// 生成一个修改日志</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://1.94.165.213">蓝</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://1.94.165.213/2025/05/01/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9311/">http://1.94.165.213/2025/05/01/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9311/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/05/02/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9312/" title="简易数据库12"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">简易数据库12</div></div><div class="info-2"><div class="info-item-1">隔离级别读提交在数据库中，“读提交”（Read Committed）是一种事务隔离级别，表示在读取数据时，事务只能读取已经提交的事务产生的数据。这意味着当一个事务正在读取数据时，如果其他事务正在修改相同的数据，它只能读取已经被提交的修改，而无法读取尚未提交的修改。在MYDB中实现读提交，主要为了防止级联回滚与 commit...</div></div></div></a><a class="pagination-related" href="/2025/05/01/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9310/" title="简易数据库10"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">简易数据库10</div></div><div class="info-2"><div class="info-item-1">VM的基本定义VM层通过VersionManager接口，向上层提供功能，如下： 123456789public interface VersionManager &#123;    byte[] read(long xid, long uid) throws Exception;    long insert(long xid, byte[] data) throws Exception;    boolean delete(long xid, long uid) throws Exception;    long begin(int level);    void commit(long xid) throws Exception;    void abort(long xid);&#125;  同时，VM的实现类还被设计为Entry的缓存，需要继承**AbstractCache**，需要实现的获取到缓存和从缓存释放的方法很简单： 1234567891011121314@Overrideprotected Entry getForCache(long uid) throws...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">蓝</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/suxiao1228"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%89%88%E6%9C%AC%E8%AE%B0%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">如何实现版本记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Entry%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.</span> <span class="toc-text">Entry格式数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Entry%E7%BB%93%E6%9E%84"><span class="toc-number">2.2.</span> <span class="toc-text">Entry结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">2.3.</span> <span class="toc-text">日志格式操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#wrapEntryRaw"><span class="toc-number">2.3.1.</span> <span class="toc-text">wrapEntryRaw()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#data"><span class="toc-number">2.3.2.</span> <span class="toc-text">data()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#setXmax"><span class="toc-number">2.3.3.</span> <span class="toc-text">setXmax()</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/22/gossip/" title="Gossip">Gossip</a><time datetime="2025-06-22T13:21:57.164Z" title="Created 2025-06-22 21:21:57">2025-06-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/04/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" title="深拷贝和浅拷贝">深拷贝和浅拷贝</a><time datetime="2025-06-04T14:56:34.535Z" title="Created 2025-06-04 22:56:34">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0(1)/" title="设计模式学习(1)">设计模式学习(1)</a><time datetime="2025-05-30T01:22:03.210Z" title="Created 2025-05-30 09:22:03">2025-05-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/22/BeanPostProcessor/" title="BeanPostProcessor">BeanPostProcessor</a><time datetime="2025-05-22T12:45:53.088Z" title="Created 2025-05-22 20:45:53">2025-05-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9317/" title="简易数据库17">简易数据库17</a><time datetime="2025-05-08T13:36:27.810Z" title="Created 2025-05-08 21:36:27">2025-05-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By 蓝</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

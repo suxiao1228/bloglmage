@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>密码加盐 | 蓝</title><meta name="author" content="蓝"><meta name="copyright" content="蓝"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="密码加盐🔐 密码加盐（Salt）是什么？密码加盐是一种 增强密码安全性 的技术。它的核心思想是在 用户密码 之前或之后，随机添加一段额外的字符串（Salt），然后再进行哈希（Hash）处理。 加盐的目的是为了防止彩虹表攻击（Rainbow Table Attack）和撞库攻击（Credential Stuffing）。  🚀 为什么要加盐？1️⃣ 防止彩虹表攻击 👉 彩虹表（Rainbow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="密码加盐">
+<meta property="og:url" content="http://1.94.165.213/2025/03/02/%E5%AF%86%E7%A0%81%E5%8A%A0%E7%9B%90/index.html">
+<meta property="og:site_name" content="蓝">
+<meta property="og:description" content="密码加盐🔐 密码加盐（Salt）是什么？密码加盐是一种 增强密码安全性 的技术。它的核心思想是在 用户密码 之前或之后，随机添加一段额外的字符串（Salt），然后再进行哈希（Hash）处理。 加盐的目的是为了防止彩虹表攻击（Rainbow Table Attack）和撞库攻击（Credential Stuffing）。  🚀 为什么要加盐？1️⃣ 防止彩虹表攻击 👉 彩虹表（Rainbow">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1.94.165.213/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-03-02T12:59:45.347Z">
+<meta property="article:modified_time" content="2025-03-02T13:00:25.200Z">
+<meta property="article:author" content="蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://1.94.165.213/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1.94.165.213/2025/03/02/%E5%AF%86%E7%A0%81%E5%8A%A0%E7%9B%90/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '密码加盐',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">蓝</span></a><a class="nav-page-title" href="/"><span class="site-name">密码加盐</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">密码加盐</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-03-02T12:59:45.347Z" title="Created 2025-03-02 20:59:45">2025-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-03-02T13:00:25.200Z" title="Updated 2025-03-02 21:00:25">2025-03-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="密码加盐"><a href="#密码加盐" class="headerlink" title="密码加盐"></a>密码加盐</h2><h3 id="🔐-密码加盐（Salt）是什么？"><a href="#🔐-密码加盐（Salt）是什么？" class="headerlink" title="🔐 密码加盐（Salt）是什么？"></a><strong>🔐 密码加盐（Salt）是什么？</strong></h3><p>密码加盐是一种 <strong>增强密码安全性</strong> 的技术。它的核心思想是在 <strong>用户密码</strong> 之前或之后，<strong>随机添加一段额外的字符串（Salt）</strong>，然后再进行哈希（Hash）处理。</p>
+<p><strong>加盐的目的是为了防止彩虹表攻击（Rainbow Table Attack）和撞库攻击（Credential Stuffing）。</strong></p>
+<hr>
+<h3 id="🚀-为什么要加盐？"><a href="#🚀-为什么要加盐？" class="headerlink" title="🚀 为什么要加盐？"></a><strong>🚀 为什么要加盐？</strong></h3><p><strong>1️⃣ 防止彩虹表攻击</strong></p>
+<p>👉 <strong>彩虹表</strong>（Rainbow Table）是一个 <strong>预计算好的哈希值数据库</strong>，黑客可以用它来反查明文密码。例如：</p>
+<ul>
+<li><strong>假设</strong> 你的密码是 <code>password123</code></li>
+<li>直接用 <strong>MD5 哈希</strong>：<code>MD5(&quot;password123&quot;) = ef92b778bafe771e89245b89ecbcf74b</code></li>
+<li>黑客可以在彩虹表里找到相同的哈希值，就能反查出你的密码。</li>
+</ul>
+<p>💡 <strong>加盐后</strong>：</p>
+<ul>
+<li><strong>假设盐是 <code>XyZ!@#</code></strong></li>
+<li><strong>加盐密码</strong>：<code>password123XyZ!@#</code></li>
+<li><strong>哈希计算</strong>：<code>MD5(&quot;password123XyZ!@#&quot;) = a1b2c3d4e5f67890abcd1234567890ef</code></li>
+<li>由于这个哈希值 <strong>不在彩虹表中</strong>，黑客无法直接反查密码！</li>
+</ul>
+<hr>
+<p><strong>2️⃣ 防止撞库攻击</strong></p>
+<p><strong>撞库攻击</strong> 是黑客利用在某个平台泄露的 <strong>账号+密码</strong> 去尝试登录其他平台。<br>比如：</p>
+<ul>
+<li>你在 <strong>A 网站</strong> 用了 <code>password123</code></li>
+<li>A 网站被黑客攻破，密码泄露</li>
+<li>黑客去 <strong>B 网站</strong> 尝试 <code>password123</code> 登录</li>
+</ul>
+<p>💡 <strong>加盐后，每个网站的密码哈希值不同</strong>：</p>
+<ul>
+<li><strong>A 网站盐</strong>：<code>abc123</code> → <code>MD5(&quot;password123abc123&quot;)</code></li>
+<li><strong>B 网站盐</strong>：<code>xyz789</code> → <code>MD5(&quot;password123xyz789&quot;)</code></li>
+<li>这样即使黑客拿到 A 网站的密码哈希值，也无法直接在 B 网站使用。</li>
+</ul>
+<hr>
+<h3 id="🔨-如何实现密码加盐？"><a href="#🔨-如何实现密码加盐？" class="headerlink" title="🔨 如何实现密码加盐？"></a><strong>🔨 如何实现密码加盐？</strong></h3><p><strong>方式 1：简单加盐（固定盐）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import java.security.MessageDigest;</span><br><span class="line">import java.security.NoSuchAlgorithmException;</span><br><span class="line"></span><br><span class="line">public class SaltedPassword &#123;</span><br><span class="line">    public static String hashPassword(String password, String salt) throws NoSuchAlgorithmException &#123;</span><br><span class="line">        MessageDigest md = MessageDigest.getInstance(&quot;SHA-256&quot;);</span><br><span class="line">        String saltedPassword = password + salt;</span><br><span class="line">        byte[] hash = md.digest(saltedPassword.getBytes());</span><br><span class="line">        StringBuilder hexString = new StringBuilder();</span><br><span class="line">        for (byte b : hash) &#123;</span><br><span class="line">            hexString.append(String.format(&quot;%02x&quot;, b));</span><br><span class="line">        &#125;</span><br><span class="line">        return hexString.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws NoSuchAlgorithmException &#123;</span><br><span class="line">        String password = &quot;mypassword&quot;;</span><br><span class="line">        String salt = &quot;XyZ!@#&quot;; // 固定盐</span><br><span class="line">        System.out.println(&quot;Hashed Password: &quot; + hashPassword(password, salt));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>🚨 <strong>问题</strong>：如果盐是固定的，黑客还是能破解。</p>
+<hr>
+<p><strong>方式 2：随机盐（更安全）</strong></p>
+<p>💡 <strong>每个用户都有自己的盐</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import java.security.MessageDigest;</span><br><span class="line">import java.security.NoSuchAlgorithmException;</span><br><span class="line">import java.security.SecureRandom;</span><br><span class="line">import java.util.Base64;</span><br><span class="line"></span><br><span class="line">public class SaltedHash &#123;</span><br><span class="line">    public static String generateSalt() &#123;</span><br><span class="line">        byte[] salt = new byte[16];</span><br><span class="line">        new SecureRandom().nextBytes(salt);</span><br><span class="line">        return Base64.getEncoder().encodeToString(salt);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String hashPassword(String password, String salt) throws NoSuchAlgorithmException &#123;</span><br><span class="line">        MessageDigest md = MessageDigest.getInstance(&quot;SHA-256&quot;);</span><br><span class="line">        String saltedPassword = password + salt;</span><br><span class="line">        byte[] hash = md.digest(saltedPassword.getBytes());</span><br><span class="line">        StringBuilder hexString = new StringBuilder();</span><br><span class="line">        for (byte b : hash) &#123;</span><br><span class="line">            hexString.append(String.format(&quot;%02x&quot;, b));</span><br><span class="line">        &#125;</span><br><span class="line">        return hexString.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws NoSuchAlgorithmException &#123;</span><br><span class="line">        String password = &quot;mypassword&quot;;</span><br><span class="line">        String salt = generateSalt(); // 生成随机盐</span><br><span class="line">        System.out.println(&quot;Salt: &quot; + salt);</span><br><span class="line">        System.out.println(&quot;Hashed Password: &quot; + hashPassword(password, salt));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>🎯 <strong>这个方法更安全</strong>，因为每个用户的盐都是随机生成的，黑客无法批量破解。</p>
+<hr>
+<h3 id="🔑-总结"><a href="#🔑-总结" class="headerlink" title="🔑 总结"></a><strong>🔑 总结</strong></h3><table>
+<thead>
+<tr>
+<th><strong>方法</strong></th>
+<th><strong>特点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>不加盐</strong></td>
+<td><strong>极不安全</strong>，容易被彩虹表攻击</td>
+</tr>
+<tr>
+<td><strong>固定盐</strong></td>
+<td><strong>稍微安全</strong>，但仍然容易被攻击</td>
+</tr>
+<tr>
+<td><strong>随机盐</strong></td>
+<td><strong>最安全</strong>，每个用户都有不同的盐，防止撞库攻击</td>
+</tr>
+</tbody></table>
+<p>🚀 <strong>最佳实践</strong>：</p>
+<ol>
+<li><strong>每个用户的密码都要有自己的随机盐</strong></li>
+<li><strong>存储时把盐和哈希值一起存</strong></li>
+<li><strong>不要用 MD5，要用 SHA-256、bcrypt、Argon2 等更安全的算法</strong></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://1.94.165.213">蓝</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://1.94.165.213/2025/03/02/%E5%AF%86%E7%A0%81%E5%8A%A0%E7%9B%90/">http://1.94.165.213/2025/03/02/%E5%AF%86%E7%A0%81%E5%8A%A0%E7%9B%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/03/03/SpanID%E5%92%8CTraceId/" title="SpanID和TraceId"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">SpanID和TraceId</div></div><div class="info-2"><div class="info-item-1">SpanID和TraceIdspanId 和 traceId 都是 分布式链路追踪（Distributed Tracing） 里的核心概念，主要用于 跟踪和分析分布式系统中的请求流向。它们的主要区别如下：  1. traceId（跟踪 ID，唯一标识一条完整的调用链） 定义：用于 唯一标识 一次完整的请求链路，从请求发起到请求结束，整个过程的所有请求都会有相同的 traceId。  作用 ：  用来 跟踪一个请求的完整生命周期，包括它经过的所有微服务和调用。 可以 跨服务传播，帮助开发人员分析 跨服务调用的全链路情况。   示例 ：  假设一个用户访问一个电商网站，触发了如下请求： 1用户请求 → API 网关 → 订单服务 → 支付服务 → 通知服务  这些所有的调用，都会  共享同一个 traceId ，方便后续分析整个请求链路。      2. spanId（跨度 ID，唯一标识一个调用片段） 定义：用于标识 一次具体的调用，即整个 traceId 下的某个具体的请求片段。  作用 ：  spanId 记录了...</div></div></div></a><a class="pagination-related" href="/2025/02/26/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/" title="雪花算法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">雪花算法</div></div><div class="info-2"><div class="info-item-1">SnowFlake 雪花算法SnowFlake 中文意思为雪花，故称为雪花算法。最早是 Twitter 公司在其内部用于分布式环境下生成唯一 ID。在2014年开源 scala 语言版本。  雪花算法原理就是生成一个的64位比特位的 long 类型的唯一 id。  最高1位固定值0，因为生成的 id 是正整数，如果是1就是负数了。 接下来41位存储毫秒级时间戳，2^41&#x2F;(1000606024365)&#x3D;69，大概可以使用69年。 再接下10位存储机器码，包括5位 datacenterId 和5位 workerId。最多可以部署2^10&#x3D;1024台机器。 最后12位存储序列号。同一毫秒时间戳时，通过这个递增的序列号来区分。即对于同一台机器而言，同一毫秒时间戳下，可以生成2^12&#x3D;4096个不重复 id。  可以将雪花算法作为一个单独的服务进行部署，然后需要全局唯一 id 的系统，请求雪花算法服务获取 id...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">蓝</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/suxiao1228"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%8A%A0%E7%9B%90"><span class="toc-number">1.</span> <span class="toc-text">密码加盐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%90-%E5%AF%86%E7%A0%81%E5%8A%A0%E7%9B%90%EF%BC%88Salt%EF%BC%89%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">🔐 密码加盐（Salt）是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A0%E7%9B%90%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">🚀 为什么要加盐？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%A8-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%AF%86%E7%A0%81%E5%8A%A0%E7%9B%90%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">🔨 如何实现密码加盐？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%91-%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">🔑 总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/22/gossip/" title="Gossip">Gossip</a><time datetime="2025-06-22T13:21:57.164Z" title="Created 2025-06-22 21:21:57">2025-06-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/04/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" title="深拷贝和浅拷贝">深拷贝和浅拷贝</a><time datetime="2025-06-04T14:56:34.535Z" title="Created 2025-06-04 22:56:34">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0(1)/" title="设计模式学习(1)">设计模式学习(1)</a><time datetime="2025-05-30T01:22:03.210Z" title="Created 2025-05-30 09:22:03">2025-05-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/22/BeanPostProcessor/" title="BeanPostProcessor">BeanPostProcessor</a><time datetime="2025-05-22T12:45:53.088Z" title="Created 2025-05-22 20:45:53">2025-05-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9317/" title="简易数据库17">简易数据库17</a><time datetime="2025-05-08T13:36:27.810Z" title="Created 2025-05-08 21:36:27">2025-05-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By 蓝</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>简易数据库04 | 蓝</title><meta name="author" content="蓝"><meta name="copyright" content="蓝"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数据管理器之页面与页面缓存为了方便管理，数据库中的各种数据（日志除外）都存储在一个.db文件中，后面称为db文件。而为了更方便地存取数据以及缓存数据，数据管理器（即DM）在操作db文件时是以页面为单位的。因此，这里需要先规定页面的相关定义。 1.页面结构定义页面（Page）是存储在内存中的数据单元，其结构包括：  pageNumber：页面的页号，从1开始计数。 data：实际包含的字节数据。 d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简易数据库04">
+<meta property="og:url" content="http://1.94.165.213/2025/04/17/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9304/index.html">
+<meta property="og:site_name" content="蓝">
+<meta property="og:description" content="数据管理器之页面与页面缓存为了方便管理，数据库中的各种数据（日志除外）都存储在一个.db文件中，后面称为db文件。而为了更方便地存取数据以及缓存数据，数据管理器（即DM）在操作db文件时是以页面为单位的。因此，这里需要先规定页面的相关定义。 1.页面结构定义页面（Page）是存储在内存中的数据单元，其结构包括：  pageNumber：页面的页号，从1开始计数。 data：实际包含的字节数据。 d">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1.94.165.213/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-04-17T14:33:08.603Z">
+<meta property="article:modified_time" content="2025-04-17T14:34:12.480Z">
+<meta property="article:author" content="蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://1.94.165.213/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1.94.165.213/2025/04/17/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9304/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '简易数据库04',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">蓝</span></a><a class="nav-page-title" href="/"><span class="site-name">简易数据库04</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">简易数据库04</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-04-17T14:33:08.603Z" title="Created 2025-04-17 22:33:08">2025-04-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-04-17T14:34:12.480Z" title="Updated 2025-04-17 22:34:12">2025-04-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="数据管理器之页面与页面缓存"><a href="#数据管理器之页面与页面缓存" class="headerlink" title="数据管理器之页面与页面缓存"></a>数据管理器之页面与页面缓存</h3><p>为了方便管理，数据库中的<strong>各种数据（日志除外）都存储在一个<code>.db</code>文件中</strong>，后面称为<code>db</code>文件。而为了更方便地存取数据以及缓存数据，数据管理器（即DM）在操作<code>db</code>文件时是以页面为单位的。因此，这里需要先规定页面的相关定义。</p>
+<h4 id="1-页面结构定义"><a href="#1-页面结构定义" class="headerlink" title="1.页面结构定义"></a>1.页面结构定义</h4><p><strong>页面（Page）</strong>是存储在内存中的数据单元，其结构包括：</p>
+<ul>
+<li><strong>pageNumber</strong>：页面的页号，从<strong>1</strong>开始计数。</li>
+<li><strong>data</strong>：实际包含的字节数据。</li>
+<li><strong>dirty</strong>：标志着页面是否是脏页面，在缓存驱逐时，脏页面需要被写回磁盘。</li>
+<li><strong>lock</strong>：用于页面的锁。</li>
+<li><strong>PageCache</strong>：保存了一个 PageCache 的引用，方便在拿到 Page 的引用时可以快速对页面的缓存进行释放操作。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class PageImpl implements Page &#123;</span><br><span class="line">    private int pageNumber;</span><br><span class="line">    private byte[] data;</span><br><span class="line">    private boolean dirty;</span><br><span class="line">    private Lock lock;</span><br><span class="line">    private PageCache pc;</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-页面缓存接口定义"><a href="#2-页面缓存接口定义" class="headerlink" title="2.页面缓存接口定义"></a>2.页面缓存接口定义</h4><ul>
+<li>定义了页面缓存的接口，包括<strong>新建页面、获取页面、释放页面、关闭缓存、根据最大页号截断缓存、获取当前页面数量以及刷新页面</strong>等方法。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public interface PageCache &#123;</span><br><span class="line">    int newPage(byte[] initData);</span><br><span class="line">    Page getPage(int pgno) throws Exception;</span><br><span class="line">    void close();</span><br><span class="line">    void release(Page page);</span><br><span class="line"></span><br><span class="line">    void truncateByBgno(int maxPgno);</span><br><span class="line">    int getPageNumber();</span><br><span class="line">    void flushPage(Page pg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-页面缓存实现"><a href="#3-页面缓存实现" class="headerlink" title="3.页面缓存实现"></a>3.页面缓存实现</h4><ul>
+<li>页面缓存的具体实现类需要继承抽象缓存框架，并实现具体的 <strong>getForCache()</strong> 和 <strong>releaseForCache()</strong> 方法。</li>
+<li>**getForCache()**方法用于从文件中读取页面数据，并将其包过程Page返回</li>
+<li>**releaseForCache()**方法用于在驱逐页面时决定是否将脏页面页面写回到文件系统</li>
+</ul>
+<h4 id="4-页面写回文件系统"><a href="#4-页面写回文件系统" class="headerlink" title="4.页面写回文件系统"></a>4.页面写回文件系统</h4><ul>
+<li>页面缓存在驱逐页面时候，根据页面是否是脏页面决定是否将其写回到文件系统（<strong>如果是脏页面，表示数据被修改过，则需要写回到磁盘文件中</strong>）</li>
+<li>写回操作使用文件锁来保证写入的原子性和线程安全性</li>
+</ul>
+<h4 id="5-新建页面"><a href="#5-新建页面" class="headerlink" title="5.新建页面"></a>5.新建页面</h4><ul>
+<li>新建页面时，页面缓存会自增页面数量，并在写入文件系统后返回新建页面的页号</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//PageCache 还使用了一个 AtomicInteger，来记录了当前打开的数据库文件有多少页。</span><br><span class="line">//这个数字在数据库文件被打开时就会被计算，并在新建页面时自增。</span><br><span class="line">public int newPage(byte[] initData) &#123;</span><br><span class="line">    int pgno = pageNumbers.incrementAndGet();</span><br><span class="line">    Page pg = new PageImpl(pgno, initData, null);</span><br><span class="line">    flush(pg);//新建的页面需要立刻写回</span><br><span class="line">    return pgno;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-限制条件"><a href="#6-限制条件" class="headerlink" title="6.限制条件"></a>6.限制条件</h4><ul>
+<li>数据库中不允许同一条数据跨页存储，即单条数据的大小不能超过数据库页面的大小</li>
+</ul>
+<h4 id="7-第一页"><a href="#7-第一页" class="headerlink" title="7.第一页"></a>7.第一页</h4><p><strong>定义</strong>：数据库中的第一页用于文件的校验（基本上所有文件都需要校验这一层，防止出现问题），校验的规则当然是自定义的，校验的规则一定要满足：<strong>在开始创建时做什么什么操作，然后再结束操作时做另外一个操作，且和创建时做的操作要对应校验</strong></p>
+<p><strong>校验规则</strong>：</p>
+<ul>
+<li>第一页<code>Page</code>的大小也遵循和其他普通的页一样，当前的默认是8KB</li>
+<li>在每次启动数据库的时候，生成一段随机字节（这里选择的是8字节），存储在100-107字节处</li>
+<li>在数据库关闭时，将100-107处的字节复制到108-115字节处</li>
+<li>下一次启动数据库时，校验这两部分的字节是否一致</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">package com.xiongsu.backend.dm.page;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import com.xiongsu.backend.dm.pageCache.PageCache;</span><br><span class="line">import com.xiongsu.backend.utils.RandomUtil;</span><br><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 特殊管理第一页</span><br><span class="line"> * ValidCheck</span><br><span class="line"> * db启动时给100~107字节处填入一个随机字节，db关闭时将其拷贝到108~115字节</span><br><span class="line"> * 用来判断上一次数据库是否正常关闭</span><br><span class="line"> */</span><br><span class="line">public class PageOne &#123;</span><br><span class="line">    private static final int OF_VC = 100;</span><br><span class="line">    private static final int LEN_VC = 8;</span><br><span class="line"></span><br><span class="line">    public static byte[] InitRaw() &#123;</span><br><span class="line">        byte[] raw = new byte[PageCache.PAGE_SIZE];</span><br><span class="line">        setVcOpen(raw);</span><br><span class="line">        return raw;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //数据库启动时，调用</span><br><span class="line">    //这个方法会生成 LEN_VC (8) 个随机字节，将这 8 个随机字节写入到第一页的 &quot;Open Slot&quot; (字节 100-107)。</span><br><span class="line">    public static void setVcOpen(Page pg) &#123;</span><br><span class="line">        pg.setDirty(true);</span><br><span class="line">        setVcOpen(pg.getData());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void setVcOpen(byte[] raw) &#123;</span><br><span class="line">        System.arraycopy(RandomUtil.randomBytes(LEN_VC), 0, raw, OF_VC, LEN_VC);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //当数据库准备正常关闭时，会调用 setVcClose 方法。</span><br><span class="line">    //这个方法比较 &quot;Open Slot&quot; (100-107) 和 &quot;Close Slot&quot; (108-115) 这两个区域的字节内容。</span><br><span class="line"></span><br><span class="line">    //如果两者内容完全相同： 这意味着上一次关闭时 setVcClose 成功执行并且其修改已持久化到磁盘。因此，数据库上次是正常关闭的。checkVc 返回 true。</span><br><span class="line">    //如果两者内容不相同： 这意味着上一次关闭时，setVcClose 没有被执行，或者执行了但对应的页面修改没有成功写回磁盘（比如发生了崩溃）。因此，数据库上次是异常关闭的。checkVc 返回 false。</span><br><span class="line">    public static void setVcClose(Page pg) &#123;</span><br><span class="line">        pg.setDirty(true);</span><br><span class="line">        setVcClose(pg.getData());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void setVcClose(byte[] raw) &#123;</span><br><span class="line">        System.arraycopy(raw, OF_VC, raw, OF_VC+LEN_VC, LEN_VC);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean checkVc(Page pg) &#123;</span><br><span class="line">        return checkVc(pg.getData());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static boolean checkVc(byte[] raw) &#123;</span><br><span class="line">        return Arrays.equals(Arrays.copyOfRange(raw, OF_VC, OF_VC+LEN_VC), Arrays.copyOfRange(raw, OF_VC+LEN_VC, OF_VC+2*LEN_VC));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="8-其他页"><a href="#8-其他页" class="headerlink" title="8.其他页"></a>8.其他页</h4><p><strong>定义</strong>：之前提到了一个<code>Page</code>的大小是固定的，对于普通页也是一样的，但是在一个<code>Page</code>的内部也需要区分数据区和空闲区。为此有以下定义：</p>
+<ul>
+<li>在一个页内的数据是按照顺序存储的，而非随机存储的</li>
+<li>普通页以2个字节起始，表示该页内的空闲区的起始偏移量</li>
+<li>从空闲区起始偏移量开始直到该页结束为空闲区，可以用来存储新数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * PageX管理普通页</span><br><span class="line"> * 普通页结构</span><br><span class="line"> * [FreeSpaceOffset] [Date]</span><br><span class="line"> * FreeSpaceOffset: 2字节 空闲位置开始偏移</span><br><span class="line"> */</span><br><span class="line">public class PageX &#123;</span><br><span class="line"></span><br><span class="line">    private static final short OF_FREE = 0;</span><br><span class="line">    private static final short OF_DATA = 2;</span><br><span class="line">    public static final int MAX_FREE_SPACE = PageCache.PAGE_SIZE - OF_DATA;</span><br><span class="line"></span><br><span class="line">    public static byte[] initRaw() &#123;</span><br><span class="line">        byte[] raw = new byte[PageCache.PAGE_SIZE];</span><br><span class="line">        setFSO(raw, OF_DATA);</span><br><span class="line">        return raw;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void setFSO(byte[] raw, short ofDate) &#123;</span><br><span class="line">        System.arraycopy(Parser.short2Byte(ofDate), 0, raw, OF_FREE, OF_DATA);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //获取pg的FSO</span><br><span class="line">    public static short getFSO(Page pg) &#123;</span><br><span class="line">        return getFSO(pg.getData());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static short getFSO(byte[] raw) &#123;</span><br><span class="line">        return Parser.parseShort(Arrays.copyOfRange(raw, 0, 2));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //将raw插入pg中， 返回插入位置</span><br><span class="line">    public static short insert(Page pg, byte[] raw) &#123;</span><br><span class="line">        pg.setDirty(true);</span><br><span class="line">        short offset = getFSO(pg.getData());</span><br><span class="line">        System.arraycopy(raw, 0, pg.getData(), offset, raw.length);</span><br><span class="line">        setFSO(pg.getData(), (short)(offset + raw.length));</span><br><span class="line">        return offset;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //获取页面的空闲时间大小</span><br><span class="line">    public static int getFreeSpace(Page pg) &#123;</span><br><span class="line">        return PageCache.PAGE_SIZE - (int)getFSO(pg.getData());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //将raw插入pg中的offset位置，并将pg的offset设置为较大的offset</span><br><span class="line">    public static void recoverInsert(Page pg, byte[] raw, short offset) &#123;</span><br><span class="line">        pg.setDirty(true);</span><br><span class="line">        System.arraycopy(raw, 0, pg.getData(), offset, raw.length);</span><br><span class="line"></span><br><span class="line">        short rawFSO = getFSO(pg.getData());</span><br><span class="line">        if (rawFSO &lt; offset + raw.length) &#123;</span><br><span class="line">            setFSO(pg.getData(), (short)(offset+raw.length));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //将raw插入到pg中的offset位置，不更新update</span><br><span class="line">    public static void recoverUpdate(Page pg, byte[] raw, short offset) &#123;</span><br><span class="line">        pg.setDirty(true);</span><br><span class="line">        System.arraycopy(raw, 0, pg.getData(), offset, raw.length);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="getForCache"><a href="#getForCache" class="headerlink" title="getForCache()"></a>getForCache()</h4><p>获取数据页的页面缓存，并将其包裹成Page</p>
+<p>![QQ20250417-202624](D:\笔记\coding 派.assets\QQ20250417-202624.png)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 根据pageNumber 从数据库文件中读取页数据，并包裹成Page</span><br><span class="line"> */</span><br><span class="line">@Override</span><br><span class="line">protected Page getForCache(long key) throws Exception &#123;</span><br><span class="line">    //将key转换为页码</span><br><span class="line">    int pgno = (int)key;</span><br><span class="line">    //计算页码对应的偏移量</span><br><span class="line">    long offset = PageCacheImpl.pageOffset(pgno);</span><br><span class="line"></span><br><span class="line">    //分配一个大小为PAGE_SIZE的ByteBuffer</span><br><span class="line">    ByteBuffer buf = ByteBuffer.allocate(PAGE_SIZE);</span><br><span class="line">    //锁定文件，保证线程安全</span><br><span class="line">    fileLock.lock();</span><br><span class="line">    try &#123;</span><br><span class="line">        //设置文件通道的位置为计算出的偏移量</span><br><span class="line">        fc.position(offset);</span><br><span class="line">        // 从文件通道读取数据到ByteBuffer</span><br><span class="line">        fc.read(buf);</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        //如果发生异常，调用Panic.panic方法处理</span><br><span class="line">        Panic.panic(e);</span><br><span class="line">    &#125;</span><br><span class="line">    //无论是否发生异常，都要解锁</span><br><span class="line">    fileLock.unlock();</span><br><span class="line">    //使用读取到的数据，页码和当前对象创建一个新的PageImpl对象并返回</span><br><span class="line">    return new PageImpl(pgno, buf.array(), this);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public PageImpl(int pageNumber, byte[] data, PageCache pc) &#123;</span><br><span class="line">    this.pageNumber = pageNumber;//设置页面的页号</span><br><span class="line">    this.data = data;//设置页面实际包含的字节数据</span><br><span class="line">    this.pc = pc;//设置页面缓存</span><br><span class="line">    lock = new ReentrantLock();//初始化一个新的可重入锁</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="releaseForCache"><a href="#releaseForCache" class="headerlink" title="releaseForCache()"></a>releaseForCache()</h4><p>当一个Page对象（页面）不再需要在缓存中保留时，就会调用这个方法。如果这个页面被标为”dirty”（即，这个页面的内容已经被修改，但是还没有写回到磁盘），那么这个方法就会调用flush方法，将这个页面的内容写回到磁盘</p>
+<p>![QQ20250417-203224](D:\笔记\coding 派.assets\QQ20250417-203224.png)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void releaseForCache(Page pg) &#123;</span><br><span class="line">    if (pg.isDirty()) &#123;</span><br><span class="line">        flush(pg);</span><br><span class="line">        pg.setDirty(false);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void flush(Page pg) &#123;</span><br><span class="line">    int pgno = pg.getPageNumber();//获取Page的页码</span><br><span class="line">    long offset = pageOffset(pgno); //计算Page在文件中的偏移量</span><br><span class="line"></span><br><span class="line">    fileLock.lock();//加锁，确保线程安全</span><br><span class="line">    try &#123;</span><br><span class="line">        ByteBuffer buf = ByteBuffer.wrap(pg.getData());//将Page的数据包装ByteBuffer</span><br><span class="line">        fc.position(offset);//设置文件通道的位置</span><br><span class="line">        fc.write(buf);//将数据写入到文件中</span><br><span class="line">        fc.force(false);//强制将数据从操作系统的缓存刷新到磁盘</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        Panic.panic(e);//如果发生异常，调用Panic.panic方法处理</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        fileLock.unlock();//最后，无论是否发生异常，都要解锁</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="recoverInsert-和recoverUpdate"><a href="#recoverInsert-和recoverUpdate" class="headerlink" title="recoverInsert()和recoverUpdate()"></a>recoverInsert()和recoverUpdate()</h4><p>**recoverInsert()<strong>和</strong>recoverUpdate()**用于在数据库崩溃后重新打开时，恢复例程直接插入数据以及修改数据使用</p>
+<p>![QQ20250417-203546](D:\笔记\coding 派.assets\QQ20250417-203546.png)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//将raw插入pg中的offset位置，并将pg的offset设置为较大的offset</span><br><span class="line">public static void recoverInsert(Page pg, byte[] raw, short offset) &#123;</span><br><span class="line">    pg.setDirty(true);</span><br><span class="line">    System.arraycopy(raw, 0, pg.getData(), offset, raw.length);</span><br><span class="line"></span><br><span class="line">    short rawFSO = getFSO(pg.getData());</span><br><span class="line">    if (rawFSO &lt; offset + raw.length) &#123;</span><br><span class="line">        setFSO(pg.getData(), (short)(offset+raw.length));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//将raw插入到pg中的offset位置，不更新update</span><br><span class="line">public static void recoverUpdate(Page pg, byte[] raw, short offset) &#123;</span><br><span class="line">    pg.setDirty(true);</span><br><span class="line">    System.arraycopy(raw, 0, pg.getData(), offset, raw.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>o</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://1.94.165.213">蓝</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://1.94.165.213/2025/04/17/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9304/">http://1.94.165.213/2025/04/17/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9304/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/20/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9305/" title="简易数据库05"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">简易数据库05</div></div><div class="info-2"><div class="info-item-1">日志文件日志文件在通常情况下不会发挥作用，但是在数据库崩溃时可以使用其来进行数据恢复。数据管理器（即DM）在每一次操作底层数据时，都会生成一条日志。如果数据库崩溃了，下次重启会根据日志内容进行恢复 日志文件结构![QQ20250420-183811](D:\笔记\coding 派.assets\QQ20250420-183811.png) 校验和日志文件开头的XCheckSum是校验和，和之前的xid文件以及db文件一样，log文件也需要进行校验。log文件分为三部分：  XCheckSum的长度为4字节，它是根据后续所有日志进行计算得到的一个值 具体的日志条目则在后面顺序存储 最后是可能存在的损坏的日志条目，在重启后通过校验要将其截断  123456private int calChecksum(int xCheck, byte[] log) &#123;    for (byte b : log) &#123;        xCheck = xCheck * SEED + b; //seed = 13331    &#125;    return...</div></div></div></a><a class="pagination-related" href="/2025/04/17/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9303/" title="简易数据库03"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">简易数据库03</div></div><div class="info-2"><div class="info-item-1">引用计数缓存框架实现缓存框架的策略实现缓存框架时要考虑的一个点是缓存策略，这里采用的策略是使用引用计数。当某个资源被使用到时，加入到缓存，如果有其他的模块也在访问这个缓存，那么计数就加1，只有当所有的模块都释放了该资源时，将其从缓存中释放。 原文 WHY NOT LRU?由于分页管理和数据项（DataItem）管理都涉及缓存，这里设计一个更通用的缓存框架。看到这里，估计你们也开始犯嘀咕了，为啥使用引用计数策略，而不使用 “极为先进的” LRU 策略呢？这里首先从缓存的接口设计说起，如果使用 LRU 缓存，那么只需要设计一个 get(key)...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">蓝</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/suxiao1228"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E5%99%A8%E4%B9%8B%E9%A1%B5%E9%9D%A2%E4%B8%8E%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98"><span class="toc-number">1.</span> <span class="toc-text">数据管理器之页面与页面缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%A1%B5%E9%9D%A2%E7%BB%93%E6%9E%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">1.页面结构定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.</span> <span class="toc-text">2.页面缓存接口定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.</span> <span class="toc-text">3.页面缓存实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%A1%B5%E9%9D%A2%E5%86%99%E5%9B%9E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.4.</span> <span class="toc-text">4.页面写回文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%96%B0%E5%BB%BA%E9%A1%B5%E9%9D%A2"><span class="toc-number">1.5.</span> <span class="toc-text">5.新建页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.6.</span> <span class="toc-text">6.限制条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E7%AC%AC%E4%B8%80%E9%A1%B5"><span class="toc-number">1.7.</span> <span class="toc-text">7.第一页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E5%85%B6%E4%BB%96%E9%A1%B5"><span class="toc-number">1.8.</span> <span class="toc-text">8.其他页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getForCache"><span class="toc-number">1.9.</span> <span class="toc-text">getForCache()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#releaseForCache"><span class="toc-number">1.10.</span> <span class="toc-text">releaseForCache()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#recoverInsert-%E5%92%8CrecoverUpdate"><span class="toc-number">1.11.</span> <span class="toc-text">recoverInsert()和recoverUpdate()</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/22/gossip/" title="Gossip">Gossip</a><time datetime="2025-06-22T13:21:57.164Z" title="Created 2025-06-22 21:21:57">2025-06-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/04/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" title="深拷贝和浅拷贝">深拷贝和浅拷贝</a><time datetime="2025-06-04T14:56:34.535Z" title="Created 2025-06-04 22:56:34">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0(1)/" title="设计模式学习(1)">设计模式学习(1)</a><time datetime="2025-05-30T01:22:03.210Z" title="Created 2025-05-30 09:22:03">2025-05-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/22/BeanPostProcessor/" title="BeanPostProcessor">BeanPostProcessor</a><time datetime="2025-05-22T12:45:53.088Z" title="Created 2025-05-22 20:45:53">2025-05-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9317/" title="简易数据库17">简易数据库17</a><time datetime="2025-05-08T13:36:27.810Z" title="Created 2025-05-08 21:36:27">2025-05-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By 蓝</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

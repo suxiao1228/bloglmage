@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>蓝</title><meta name="author" content="蓝"><meta name="copyright" content="蓝"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="蓝">
+<meta property="og:url" content="http://1.94.165.213/page/3/index.html">
+<meta property="og:site_name" content="蓝">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1.94.165.213/img/butterfly-icon.png">
+<meta property="article:author" content="蓝">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://1.94.165.213/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1.94.165.213/page/3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '蓝',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">蓝</span></a></span><div id="menus"></div></nav><div id="site-info"><h1 id="site-title">蓝</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/04/14/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9301/" title="简易数据库01">简易数据库01</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-04-14T14:36:51.808Z" title="Created 2025-04-14 22:36:51">2025-04-14</time></span></div><div class="content">模块MYDB 分为后端和前端，前后端通过 socket 进行交互。前端（客户端）的职责很单一，读取用户输入，并发送到后端执行，输出返回结果，并等待下一次输入。MYDB 后端则需要解析 SQL，如果是合法的 SQL，就尝试执行并返回结果。不包括解析器，MYDB 的后端划分为五个模块，每个模块都又一定的职责，通过接口向其依赖的模块提供方法。五个模块如下：  Transaction Manager（TM） Data Manager（DM） Version Manager（VM） Index Manager（IM） Table Manager（TBM）  ![QQ20250414-195551](D:\笔记\coding 派.assets\QQ20250414-195551.png) 实现顺序是 TM -&gt; DM -&gt; VM -&gt; IM -&gt; TBM 每个模块的职责如下：  TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。 DM 直接管理数据库 DB 文件和日志文件。DM 的主要职责有：1) 分页管理 DB...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/04/10/%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98/" title="多级缓存">多级缓存</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-04-10T11:48:09.443Z" title="Created 2025-04-10 19:48:09">2025-04-10</time></span></div><div class="content">前言对于高并发系统来说，有三个重要的机制来保障其高效运行，它们分别是：缓存、限流和熔断。而缓存是排在最前面也是高并发系统之所以高效运行的关键手段，那么问题来了：缓存只使用 Redis 就够了吗？ 冗余设计理念当然不是，不要把所有鸡蛋放到一个篮子里，成熟的系统在关键功能实现时一定会考虑冗余设计，注意这里的冗余设计不是贬义词。 冗余设计是在系统或设备完成任务起关键作用的地方，增加一套以上完成相同功能的功能通道（or 系统）、工作元件或部件，以保证当该部分出现故障时，系统或设备仍能正常工作，以减少系统或者设备的故障概率，提高系统可靠性。 例如，飞机的设计，飞机正常运行只需要两个发动机，但在每台飞机的设计中可能至少会设计四个发动机，这就有冗余设计的典型使用场景，这样设计的目的是为了保证极端情况下，如果有一个或两个发动机出现故障，不会因为某个发动机的故障而引起重大的安全事故。 多级缓存概述缓存功能的设计也是一样，我们在高并发系统中通常会使用多级缓存来保证其高效运行，其中的多级缓存就包含以下这些： 浏览器缓存：它的实现主要依靠 HTTP...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/03/17/%E6%97%A0%E9%99%90%E5%B5%8C%E5%A5%97%E7%BC%93%E5%AD%98/" title="无限嵌套评论">无限嵌套评论</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-03-17T13:27:50.129Z" title="Created 2025-03-17 21:27:50">2025-03-17</time></span></div><div class="content">1.buildCommentTreeAsync 方法（异步构建评论树）12345678private CompletableFuture&lt;CommentTree&gt; buildCommentTreeAsync(Long articleId, List&lt;CommentDO&gt; topComments) &#123;    return CompletableFuture.supplyAsync(() -&gt; &#123;        Set&lt;Long&gt; topIds = topComments.stream().map(CommentDO::getId).collect(Collectors.toSet());        List&lt;CommentDO&gt; subComments = commentDao.listSubCommentsRecursive(articleId, topIds);        return buildTreeStructure(topComments, subComments);   ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/03/16/SEO/" title="SEO">SEO</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-03-16T05:28:27.949Z" title="Created 2025-03-16 13:28:27">2025-03-16</time></span></div><div class="content">...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/03/03/SpanID%E5%92%8CTraceId/" title="SpanID和TraceId">SpanID和TraceId</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-03-03T03:37:40.470Z" title="Created 2025-03-03 11:37:40">2025-03-03</time></span></div><div class="content">SpanID和TraceIdspanId 和 traceId 都是 分布式链路追踪（Distributed Tracing） 里的核心概念，主要用于 跟踪和分析分布式系统中的请求流向。它们的主要区别如下：  1. traceId（跟踪 ID，唯一标识一条完整的调用链） 定义：用于 唯一标识 一次完整的请求链路，从请求发起到请求结束，整个过程的所有请求都会有相同的 traceId。  作用 ：  用来 跟踪一个请求的完整生命周期，包括它经过的所有微服务和调用。 可以 跨服务传播，帮助开发人员分析 跨服务调用的全链路情况。   示例 ：  假设一个用户访问一个电商网站，触发了如下请求： 1用户请求 → API 网关 → 订单服务 → 支付服务 → 通知服务  这些所有的调用，都会  共享同一个 traceId ，方便后续分析整个请求链路。      2. spanId（跨度 ID，唯一标识一个调用片段） 定义：用于标识 一次具体的调用，即整个 traceId 下的某个具体的请求片段。  作用 ：  spanId 记录了...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/03/02/%E5%AF%86%E7%A0%81%E5%8A%A0%E7%9B%90/" title="密码加盐">密码加盐</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-03-02T12:59:45.347Z" title="Created 2025-03-02 20:59:45">2025-03-02</time></span></div><div class="content">密码加盐🔐 密码加盐（Salt）是什么？密码加盐是一种 增强密码安全性 的技术。它的核心思想是在 用户密码 之前或之后，随机添加一段额外的字符串（Salt），然后再进行哈希（Hash）处理。 加盐的目的是为了防止彩虹表攻击（Rainbow Table Attack）和撞库攻击（Credential Stuffing）。  🚀 为什么要加盐？1️⃣ 防止彩虹表攻击 👉 彩虹表（Rainbow Table）是一个 预计算好的哈希值数据库，黑客可以用它来反查明文密码。例如：  假设 你的密码是 password123 直接用 MD5 哈希：MD5(&quot;password123&quot;) = ef92b778bafe771e89245b89ecbcf74b 黑客可以在彩虹表里找到相同的哈希值，就能反查出你的密码。  💡 加盐后：  假设盐是 XyZ!@# 加盐密码：password123XyZ!@# 哈希计算：MD5(&quot;password123XyZ!@#&quot;) = a1b2c3d4e5f67890abcd1234567890ef 由于这个哈希值...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/26/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/" title="雪花算法">雪花算法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-26T11:05:20.791Z" title="Created 2025-02-26 19:05:20">2025-02-26</time></span></div><div class="content">SnowFlake 雪花算法SnowFlake 中文意思为雪花，故称为雪花算法。最早是 Twitter 公司在其内部用于分布式环境下生成唯一 ID。在2014年开源 scala 语言版本。  雪花算法原理就是生成一个的64位比特位的 long 类型的唯一 id。  最高1位固定值0，因为生成的 id 是正整数，如果是1就是负数了。 接下来41位存储毫秒级时间戳，2^41&#x2F;(1000606024365)&#x3D;69，大概可以使用69年。 再接下10位存储机器码，包括5位 datacenterId 和5位 workerId。最多可以部署2^10&#x3D;1024台机器。 最后12位存储序列号。同一毫秒时间戳时，通过这个递增的序列号来区分。即对于同一台机器而言，同一毫秒时间戳下，可以生成2^12&#x3D;4096个不重复 id。  可以将雪花算法作为一个单独的服务进行部署，然后需要全局唯一 id 的系统，请求雪花算法服务获取 id...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/26/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E9%97%AE%E9%A2%98/" title="文章的缓存击穿问题">文章的缓存击穿问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-26T08:39:51.378Z" title="Created 2025-02-26 16:39:51">2025-02-26</time></span></div><div class="content">...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/08/Mysql%E5%92%8CRedis%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/" title="MySQL和Redis缓存一致性">MySQL和Redis缓存一致性</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-08T09:59:35.689Z" title="Created 2025-02-08 17:59:35">2025-02-08</time></span></div><div class="content">MySQL和Redis缓存一致性一共有六种方案不好的方案： 先写MySQL，再写Redis 先写Redis，再写MySQL 先删除Redis,再写MySQL  好的方案: 先删除Redis,再写Mysql,再删除Redis 先写MySQL,再删除Redis 先写MySQL,通过Binlog,异步更新Redis  (1)先写MySQL,再写Redis 请求 A、B 都是先写 MySQL，然后再写 Redis，在高并发情况下，如果请求 A 在写 Redis 时卡了一会，请求 B已经依次完成数据的更新，就会出现图中的问题。不过这里有个前提，就是对于读请求，先去读 Redis，如果没有，再去读 DB，但是读请求不会再回写 Redis。 大白话说一下，就是读请求不会更新 Redis。 (2)先写Redis,再写MySQL 同”先写MySQL,再写Redis” (3)先删除Redis,再写MySQL这幅图和上面有些不一样，前面的请求 A和 B都是更新请求，这里的请求 A 是更新请求，但是请求 B 是读请求，且请求 B的读请求会回写 Redis。  请求 A...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/05/main%E7%9A%84static/" title="main方法的static修饰">main方法的static修饰</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-05T15:02:42.789Z" title="Created 2025-02-05 23:02:42">2025-02-05</time></span></div><div class="content">main方法的static修饰在 Java 中，main 方法是静态的，添加 static 修饰意味着它属于类，而不是类的某个实例。因此，静态方法（如 main 方法）不能直接访问非静态的成员变量或方法，包括 private 修饰的变量。 原因静态方法在类加载时就已经存在，而非静态变量或方法依赖于类的实例化。没有实例对象的上下文，静态方法无法直接操作非静态成员。 示例代码123456789101112public class Example &#123;    private String instanceVariable = &quot;I am a private instance variable&quot;;    public static void main(String[] args) &#123;        // 无法直接访问非静态变量        // System.out.println(instanceVariable); // 编译错误        // 需要创建类的实例来访问非静态变量        Example example = new...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">蓝</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/suxiao1228"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/22/gossip/" title="Gossip">Gossip</a><time datetime="2025-06-22T13:21:57.164Z" title="Created 2025-06-22 21:21:57">2025-06-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/04/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" title="深拷贝和浅拷贝">深拷贝和浅拷贝</a><time datetime="2025-06-04T14:56:34.535Z" title="Created 2025-06-04 22:56:34">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0(1)/" title="设计模式学习(1)">设计模式学习(1)</a><time datetime="2025-05-30T01:22:03.210Z" title="Created 2025-05-30 09:22:03">2025-05-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/22/BeanPostProcessor/" title="BeanPostProcessor">BeanPostProcessor</a><time datetime="2025-05-22T12:45:53.088Z" title="Created 2025-05-22 20:45:53">2025-05-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/%E7%AE%80%E6%98%93%E6%95%B0%E6%8D%AE%E5%BA%9317/" title="简易数据库17">简易数据库17</a><time datetime="2025-05-08T13:36:27.810Z" title="Created 2025-05-08 21:36:27">2025-05-08</time></div></div></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      
+    </div>
+    <ul class="card-archive-list">
+  
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2025/06/">
+          <span class="card-archive-list-date">June 2025</span>
+          <span class="card-archive-list-count">2</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2025/05/">
+          <span class="card-archive-list-date">May 2025</span>
+          <span class="card-archive-list-count">10</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2025/04/">
+          <span class="card-archive-list-date">April 2025</span>
+          <span class="card-archive-list-count">10</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2025/03/">
+          <span class="card-archive-list-date">March 2025</span>
+          <span class="card-archive-list-count">4</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2025/02/">
+          <span class="card-archive-list-date">February 2025</span>
+          <span class="card-archive-list-count">5</span>
+        </a>
+      </li>
+    
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2024/12/">
+          <span class="card-archive-list-date">December 2024</span>
+          <span class="card-archive-list-count">1</span>
+        </a>
+      </li>
+    </ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">32</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-06-22T13:25:35.632Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By 蓝</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
