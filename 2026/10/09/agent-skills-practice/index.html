@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>从零写两份 Agent Skill：Java 代码审查与 Hexo 博客发布 | SU XIAO</title><meta name="author" content="苏晓"><meta name="copyright" content="苏晓"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="用两份可下载的 Skill 理解 SKILL.md、参考资料、脚本与渐进式披露，并介绍触发范围、权限边界、验证方法和面试表达。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零写两份 Agent Skill：Java 代码审查与 Hexo 博客发布">
+<meta property="og:url" content="https://suxiao1228.github.io/2026/10/09/agent-skills-practice/index.html">
+<meta property="og:site_name" content="SU XIAO">
+<meta property="og:description" content="用两份可下载的 Skill 理解 SKILL.md、参考资料、脚本与渐进式披露，并介绍触发范围、权限边界、验证方法和面试表达。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://suxiao1228.github.io/img/avatar.jpg">
+<meta property="article:published_time" content="2026-10-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-09T09:48:03.264Z">
+<meta property="article:author" content="苏晓">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="Skill">
+<meta property="article:tag" content="Codex">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://suxiao1228.github.io/img/avatar.jpg"><link rel="shortcut icon" href="/bloglmage/img/avatar.jpg"><link rel="canonical" href="https://suxiao1228.github.io/2026/10/09/agent-skills-practice/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/bloglmage/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/bloglmage/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从零写两份 Agent Skill：Java 代码审查与 Hexo 博客发布',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="/bloglmage/css/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/bloglmage/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/bloglmage/archives/"><div class="headline">文章</div><div class="length-num">36</div></a><a href="/bloglmage/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/bloglmage/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bloglmage/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/bloglmage/#about"><i class="fa-fw fas fa-user"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="/bloglmage/#content-inner"><i class="fa-fw fas fa-book-open"></i><span> Blogs</span></a></div><div class="menus_item"><a class="site-page" href="/bloglmage/#experience"><i class="fa-fw fas fa-briefcase"></i><span> Experience</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/bloglmage/"><span class="site-name">SU XIAO</span></a><a class="nav-page-title" href="/bloglmage/"><span class="site-name">从零写两份 Agent Skill：Java 代码审查与 Hexo 博客发布</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/bloglmage/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/bloglmage/#about"><i class="fa-fw fas fa-user"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="/bloglmage/#content-inner"><i class="fa-fw fas fa-book-open"></i><span> Blogs</span></a></div><div class="menus_item"><a class="site-page" href="/bloglmage/#experience"><i class="fa-fw fas fa-briefcase"></i><span> Experience</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">从零写两份 Agent Skill：Java 代码审查与 Hexo 博客发布</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-08T16:00:00.000Z" title="发表于 2026-10-09 00:00:00">2026-10-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-09T09:48:03.264Z" title="更新于 2026-10-09 17:48:03">2026-10-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/bloglmage/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>面试中被问到“有没有写过 Skill”，只了解概念通常还不够。更有说服力的回答，是能讲清楚：它解决什么重复任务、怎样组织指令和资源、如何控制触发范围，以及做过哪些验证。</p>
+<p>这篇文章从两个实际场景出发，制作 <strong>Java 后端代码审查</strong> 和 <strong>Hexo 技术博客写作与发布</strong> 两份 Skill。示例由 AI 辅助编写，附有实际文件、校验脚本和下载包，适合作为练习起点。</p>
+<p>本文以 Codex 的本地 Skill 为实现环境。其他 Agent 产品也可能支持类似规范，但安装位置、工具和元数据支持需要查对应平台文档。</p>
+<span id="more"></span>
+
+<h2 id="1-Skill-是什么？"><a href="#1-Skill-是什么？" class="headerlink" title="1. Skill 是什么？"></a>1. Skill 是什么？</h2><blockquote>
+<p>Skill 是可复用的任务知识与执行流程包，由指令、参考资料和可选的脚本或模板组成，帮助 Agent 在特定场景下稳定完成工作。</p>
+</blockquote>
+<p>它与一次性的 Prompt 都使用自然语言指导模型，但 Skill 把触发条件、操作流程和辅助资源组织成可维护的目录，方便跨任务复用。</p>
+<p>Skill 也不等于一个独立 Agent：它不必拥有自己的模型、后台进程或执行循环。Agent 在运行过程中选用合适的 Skill，读取相关说明，再利用环境提供的工具完成任务。</p>
+<p>对于“解释什么是事务”这种简单问题，普通提问就够了；对于“每次代码审查都要跟踪鉴权和事务调用路径、按证据报告问题”，Skill 更有价值。</p>
+<h2 id="2-Skill-的组成"><a href="#2-Skill-的组成" class="headerlink" title="2. Skill 的组成"></a>2. Skill 的组成</h2><p>一个 Skill 的最小结构只有一个文件：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my-skill/</span><br><span class="line">└── SKILL.md</span><br></pre></td></tr></table></figure>
+
+<p>需要辅助资源时，可以扩展为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">my-skill/</span><br><span class="line">├── SKILL.md</span><br><span class="line">├── references/</span><br><span class="line">├── scripts/</span><br><span class="line">├── assets/</span><br><span class="line">└── agents/</span><br><span class="line">    └── openai.yaml</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>组成</th>
+<th>必需吗</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SKILL.md</td>
+<td>必需</td>
+<td>YAML 元信息与核心操作指令</td>
+</tr>
+<tr>
+<td>references&#x2F;</td>
+<td>可选</td>
+<td>按需读取的领域规则、数据结构和细节</td>
+</tr>
+<tr>
+<td>scripts&#x2F;</td>
+<td>可选</td>
+<td>执行确定性的转换或校验逻辑</td>
+</tr>
+<tr>
+<td>assets&#x2F;</td>
+<td>可选</td>
+<td>用于输出的模板、图片等资源</td>
+</tr>
+<tr>
+<td>agents&#x2F;openai.yaml</td>
+<td>可选</td>
+<td>Codex 平台的展示信息、调用策略和工具依赖等</td>
+</tr>
+</tbody></table>
+<p>不要为了凑齐结构创建空目录。一份简短、聚焦的 Skill 可能只需要 SKILL.md。</p>
+<h3 id="YAML-元信息：决定什么时候考虑使用"><a href="#YAML-元信息：决定什么时候考虑使用" class="headerlink" title="YAML 元信息：决定什么时候考虑使用"></a>YAML 元信息：决定什么时候考虑使用</h3><p>SKILL.md 开头需要 name 和 description：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">java-backend-review</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">审查</span> <span class="string">Java/Spring</span> <span class="string">后端代码或变更中的实际缺陷，重点关注鉴权、事务、并发、缓存与异常处理，并输出有证据的发现。用于用户请求代码审查或定位回归风险；不用于普通</span> <span class="string">Java</span> <span class="string">概念问答，也不默认修改代码。</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<p>name 应简短、清晰，使用小写字母、数字和连字符。description 要说清能力和适用场景，必要时增加容易混淆的排除范围。</p>
+<p>“用于编程相关问题”范围过大；“审查 Java&#x2F;Spring 后端变更中的实际缺陷”更容易被准确匹配。</p>
+<h3 id="Markdown-正文：指导怎么做"><a href="#Markdown-正文：指导怎么做" class="headerlink" title="Markdown 正文：指导怎么做"></a>Markdown 正文：指导怎么做</h3><p>正文应描述实际输入、关键步骤、约束和输出。例如：</p>
+<ul>
+<li>从用户指定的提交或差异确定范围。</li>
+<li>读取相关调用方，而不是只看修改行。</li>
+<li>依据触发条件和证据报告问题。</li>
+<li>审查默认只读，不擅自提交或部署。</li>
+</ul>
+<p>重点是补充会影响决策的知识，而不是反复要求“认真分析、专业回答”。</p>
+<h2 id="3-渐进式披露：按需加载"><a href="#3-渐进式披露：按需加载" class="headerlink" title="3. 渐进式披露：按需加载"></a>3. 渐进式披露：按需加载</h2><p>官方文档介绍了 Skill 的渐进式披露机制：[1]</p>
+<ol>
+<li>选择技能时，先提供 name 和 description 等简短信息。</li>
+<li>决定使用后，再读取完整 SKILL.md。</li>
+<li>只有当前任务需要时，才加载参考资料或执行脚本。</li>
+</ol>
+<p>因此，一份好的 Skill 应把公共流程留在入口，把较长的条件性知识移到 references。</p>
+<p>脚本与参考资料也有区别：脚本是可执行代码，往往可以直接运行；references 是供模型读取的知识。两者都需要明确的调用说明，而不是仅仅放在目录里。</p>
+<h2 id="4-示例一：Java-后端代码审查"><a href="#4-示例一：Java-后端代码审查" class="headerlink" title="4. 示例一：Java 后端代码审查"></a>4. 示例一：Java 后端代码审查</h2><h3 id="解决什么问题？"><a href="#解决什么问题？" class="headerlink" title="解决什么问题？"></a>解决什么问题？</h3><p>代码审查容易出现两种情况：</p>
+<ul>
+<li>只检查格式与命名，没有发现行为缺陷。</li>
+<li>看到某种写法就判断“有 Bug”，却没有确认运行条件。</li>
+</ul>
+<p>这份 Skill 把关注点放在鉴权、事务、并发、缓存和异常处理，并要求每项发现有可核对的证据。</p>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java-backend-review/</span><br><span class="line">├── SKILL.md</span><br><span class="line">└── references/</span><br><span class="line">    └── backend-risks.md</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整-SKILL-md"><a href="#完整-SKILL-md" class="headerlink" title="完整 SKILL.md"></a>完整 SKILL.md</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: java-backend-review</span><br><span class="line"><span class="section">description: 审查 Java/Spring 后端代码或变更中的实际缺陷，重点关注鉴权、事务、并发、缓存与异常处理，并输出有证据的发现。用于用户请求代码审查或定位回归风险；不用于普通 Java 概念问答，也不默认修改代码。</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line"></span><br><span class="line"><span class="section"># Java 后端代码审查</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 明确审查范围</span></span><br><span class="line">按用户指定的文件、提交、分支差异或 PR 审查。未指定范围时，先检查 Git 状态和现有差异；仅在无法确定审查对象时询问。</span><br><span class="line">保留用户已有修改。审查请求默认只读；修复、提交或发布须在用户任务授权范围内进行。</span><br><span class="line"></span><br><span class="line"><span class="section">## 跟踪实际行为</span></span><br><span class="line">阅读变更和直接相关的调用方、数据结构、配置及测试，确认输入如何到达风险点。</span><br><span class="line">只在相应逻辑存在时读取 [<span class="string">references/backend-risks.md</span>](<span class="link">references/backend-risks.md</span>) 对应条目，不机械罗列全部风险。</span><br><span class="line">优先寻找会导致越权、数据错误、事务失效、并发异常或行为回归的问题。</span><br><span class="line"></span><br><span class="line"><span class="section">## 建立证据</span></span><br><span class="line">每项发现必须说明具体触发条件、实际后果及文件行号；必要时给最小复现或有针对性的测试。</span><br><span class="line">区分可确认缺陷与依赖运行环境的推测。证据不足时注明待验证前提，不将猜测写成已确认 Bug。</span><br><span class="line">避免运行生产写操作或无关的全量测试。报告实际执行的检查及未覆盖的部分。</span><br><span class="line"></span><br><span class="line"><span class="section">## 交付审查结果</span></span><br><span class="line">按影响程度排序，使用以下格式：</span><br><span class="line"><span class="bullet">-</span> [P1/P2/P3] 简短标题</span><br><span class="line"><span class="bullet">-</span> 位置：文件与行号</span><br><span class="line"><span class="bullet">-</span> 触发条件与后果</span><br><span class="line"><span class="bullet">-</span> 证据及最小修复方向</span><br><span class="line"></span><br><span class="line">P1 表示高影响的数据、安全或主要功能问题；P2 表示需要修复的普通功能缺陷；P3 表示较低影响问题。按具体影响定级。</span><br><span class="line">发现优先，背景概述从简。没有发现时明确说明审查范围和测试限制，不为凑数量输出样式建议。</span><br></pre></td></tr></table></figure>
+
+<h3 id="references-中写什么？"><a href="#references-中写什么？" class="headerlink" title="references 中写什么？"></a>references 中写什么？</h3><p>backend-risks.md 提供按场景读取的审查线索，例如：</p>
+<ul>
+<li>鉴权：用户 ID 是否来自可信身份，查询是否限制资源所有权。</li>
+<li>事务：是否经过事务代理，异常是否被吞掉，外部服务是否超出事务边界。</li>
+<li>并发：先查后写是否存在竞争，唯一约束是否覆盖风险。</li>
+<li>缓存：缓存键是否包含租户维度，失效策略是否会产生陈旧值。</li>
+<li>外部调用：超时和重试是否产生重复副作用。</li>
+</ul>
+<p>它特别注明：这些是排查线索，不是自动成立的缺陷。例如 Spring 同类自调用的事务问题需要确认实际代理模式，不能只看到方法调用就下结论。</p>
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请使用 $java-backend-review 审查当前 Java 后端的未提交变更，</span><br><span class="line">重点检查订单查询鉴权。只做审查，不修改代码。</span><br></pre></td></tr></table></figure>
+
+<p>假设查询直接接受请求中的 userId，而没有绑定登录用户，Skill 应引导 Agent 阅读鉴权入口和数据库查询，判断能否构造越权请求，再报告具体位置与影响。</p>
+<p>这是预期工作方式示例，不是本次已经运行的生产系统审查结果。</p>
+<h2 id="5-示例二：Hexo-技术博客写作与发布"><a href="#5-示例二：Hexo-技术博客写作与发布" class="headerlink" title="5. 示例二：Hexo 技术博客写作与发布"></a>5. 示例二：Hexo 技术博客写作与发布</h2><h3 id="解决什么问题？-1"><a href="#解决什么问题？-1" class="headerlink" title="解决什么问题？"></a>解决什么问题？</h3><p>技术文章发布不仅要生成文字，还需要处理：</p>
+<ul>
+<li>来源是否可靠、是否真的访问过。</li>
+<li>YAML 标题与日期是否有效。</li>
+<li>Markdown 代码块是否闭合。</li>
+<li>Hexo 是否成功生成文章。</li>
+<li>部署成功后，线上是否真的出现新内容。</li>
+</ul>
+<p>这份 Skill 把写作、检查和发布串起来，同时区分用户只是要草稿，还是明确要求上线。</p>
+<h3 id="目录结构-1"><a href="#目录结构-1" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo-blog-publish/</span><br><span class="line">├── SKILL.md</span><br><span class="line">├── references/</span><br><span class="line">│   └── writing-and-release.md</span><br><span class="line">└── scripts/</span><br><span class="line">    └── check-post.cjs</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整-SKILL-md-1"><a href="#完整-SKILL-md-1" class="headerlink" title="完整 SKILL.md"></a>完整 SKILL.md</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: hexo-blog-publish</span><br><span class="line"><span class="section">description: 将技术主题或现有草稿整理成有来源的 Hexo Markdown 文章，校验生成页面，并在用户明确要求发布时部署及核对线上结果。用于 Hexo 博客写作、更新和发布；仅问概念时不写文件，仅写草稿时不部署。</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line"></span><br><span class="line"><span class="section"># 技术文章写作与 Hexo 发布</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 确定任务和环境</span></span><br><span class="line">从用户指定位置或当前工作区定位 Hexo 根目录，读取适用的 AGENTS.md、<span class="emphasis">_config.yml、package.json 和 Git 状态。</span></span><br><span class="line"><span class="emphasis">区分“写草稿”“更新文章”和“发布文章”。已有发布授权可继续执行，不重复索取确认；源码提交/推送需用户请求或会话授权。</span></span><br><span class="line"><span class="emphasis">不硬编码账户、目录、发布分支或主题，不覆盖无关修改。</span></span><br><span class="line"><span class="emphasis"></span></span><br><span class="line"><span class="emphasis">## 写作</span></span><br><span class="line"><span class="emphasis">阅读 [<span class="string">references/writing-and-release.md</span>](<span class="link">references/writing-and-release.md</span>) 中对应阶段的指导。</span></span><br><span class="line"><span class="emphasis">主题有歧义时结合上下文解释采用的含义。需要事实资料时实际访问可靠来源；没有联网能力时说明限制。</span></span><br><span class="line"><span class="emphasis">注明来源，区分事实、归纳与假设案例。不要编造作者经历、项目指标或测试结果。</span></span><br><span class="line"><span class="emphasis">在 source/_</span>posts 下创建或编辑文章，使用 UTF-8、有效 YAML 元信息及合理摘要。日期按用户时区；保留既有文章的日期和地址，除非用户要求调整。</span><br><span class="line"></span><br><span class="line"><span class="section">## 校验和构建</span></span><br><span class="line">使用现有 Node.js 及 Hexo 项目中的 js-yaml 运行：</span><br><span class="line">node &quot;<span class="language-xml"><span class="tag">&lt;<span class="name">skill-dir</span>&gt;</span></span>/scripts/check-post.cjs&quot; &quot;<span class="language-xml"><span class="tag">&lt;<span class="name">hexo-root</span>&gt;</span></span>&quot; &quot;<span class="language-xml"><span class="tag">&lt;<span class="name">post-file</span>&gt;</span></span>&quot;</span><br><span class="line">脚本只检查常见文章格式和文件范围，不替代 Hexo 构建或内容事实核对；没有现有依赖时不要静默安装。</span><br><span class="line">执行项目已有构建命令，并定位实际生成地址。核对标题、关键章节、引用、本地下载附件及首页入口。</span><br><span class="line">命令退出失败时停止依赖步骤，先定位问题。</span><br><span class="line"></span><br><span class="line"><span class="section">## 发布与交付</span></span><br><span class="line">只有任务包含发布时，才按项目现有配置部署。不得为了发布自行更换远端、修改 CI、升级依赖或扩大访问权限。</span><br><span class="line">部署后检查线上地址和实际内容。页面尚未更新时进行少量有间隔的检查；仍无法确认则明确报告“推送成功，线上待确认”。</span><br><span class="line">在已获授权时仅提交本次相关文件，汇报文章 URL、源码路径、检查结果和实际完成的 Git 操作。</span><br></pre></td></tr></table></figure>
+
+<h3 id="为什么附带脚本？"><a href="#为什么附带脚本？" class="headerlink" title="为什么附带脚本？"></a>为什么附带脚本？</h3><p>文章标题是否为空、日期是否有效、代码块是否闭合，这些检查适合用程序执行，而不是让模型每次凭感觉检查。</p>
+<p>check-post.cjs 会：</p>
+<ul>
+<li>确认文件实际位于指定 Hexo 站点的 source&#x2F;_posts 内。</li>
+<li>检查 UTF-8、YAML 元信息、非空标题与正文。</li>
+<li>校验日期及可选的时分秒。</li>
+<li>检查常见 Markdown 围栏代码块是否闭合。</li>
+<li>检查失败时返回非零退出码。</li>
+</ul>
+<p>脚本只读取文件，不部署、不修改文章、不访问网络。YAML 解析使用站点已经安装的 js-yaml，缺少依赖时报告错误，不静默安装。</p>
+<p>支持的日期格式为 YYYY-MM-DD 或 YYYY-MM-DD HH:mm:ss，也接受 T 分隔。<strong>这是示例脚本的校验范围，不代表 Hexo 只支持这些日期格式。</strong></p>
+<p>运行示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node <span class="string">&quot;&lt;skill-dir&gt;/scripts/check-post.cjs&quot;</span> <span class="string">&quot;&lt;hexo-root&gt;&quot;</span> <span class="string">&quot;source/_posts/example.md&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>真实源代码包含在下载包中。文章没有重复粘贴全部脚本，方便把注意力集中在 Skill 设计。</p>
+<h3 id="使用示例-1"><a href="#使用示例-1" class="headerlink" title="使用示例"></a>使用示例</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请使用 $hexo-blog-publish，查阅资料写一篇缓存一致性文章。</span><br><span class="line">先完成草稿和本地构建，不要发布。</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请使用 $hexo-blog-publish，更新这篇 Hexo 文章并发布，</span><br><span class="line">检查线上页面，再将本次源码变更提交并推送到已有源码仓库。</span><br></pre></td></tr></table></figure>
+
+<p>第二个请求明确包含了发布和源码同步，Skill 应执行这些已授权步骤；第一个请求则停在草稿和构建，不因为名称里有 publish 就自动上线。</p>
+<h2 id="6-下载与安装"><a href="#6-下载与安装" class="headerlink" title="6. 下载与安装"></a>6. 下载与安装</h2><p><a href="/bloglmage/downloads/agent-skills-examples.zip">下载两份 Skill 的完整 ZIP 包</a></p>
+<p>压缩包包括两份 SKILL.md、对应参考资料和只读文章检查脚本，不包含凭证或个人账户配置。</p>
+<p>本博客源码仓库已经将两份 Skill 放在 .agents&#x2F;skills 下。按当前 Codex 官方文档，仓库内的 .agents&#x2F;skills 可用于本地发现。[1]</p>
+<p>在其他项目中使用时，把对应目录放入项目根目录的 .agents&#x2F;skills：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">your-project/</span><br><span class="line">└── .agents/</span><br><span class="line">    └── skills/</span><br><span class="line">        ├── java-backend-review/</span><br><span class="line">        └── hexo-blog-publish/</span><br></pre></td></tr></table></figure>
+
+<p>显式调用可以使用 $skill-name；平台也可能依据 description 自动选择。不同客户端的选择入口有所区别，例如 CLI&#x2F;IDE 的技能选择或桌面端技能界面。未发现新 Skill 时，检查目录与元信息，必要时重启客户端。</p>
+<p>这些文件不会自动安装工具或获取权限：审查需要代码读取能力，博客发布需要对应的构建环境和现有部署授权。要分发为插件，可以按平台规范进一步打包；本例先采用适合本地练习的目录与 ZIP。</p>
+<h2 id="7-本次做了哪些验证？"><a href="#7-本次做了哪些验证？" class="headerlink" title="7. 本次做了哪些验证？"></a>7. 本次做了哪些验证？</h2><p>本次验证分为格式和脚本行为两部分：</p>
+<ul>
+<li>两份 Skill 的 YAML 均能解析，name 与目录一致，description 有效。</li>
+<li>SKILL.md 引用的参考文件均存在。</li>
+<li>脚本通过 13 个正常与异常用例，覆盖纯日期、日期时间、代码块、非法日期和时间、缺少标题、坏 YAML、空正文、目录越界、错误编码，以及失败退出码。</li>
+<li>脚本成功检查现有 Agent 和 Harness 两篇文章。</li>
+</ul>
+<p>校验工具使用 Hexo 现有的 js-yaml，没有为验证额外安装 Python YAML 依赖。</p>
+<p>这些结果证明了格式和检查脚本的部分行为，<strong>还不能证明 Agent 会在所有实际任务中准确触发或做出正确判断</strong>。本次也没有把示例应用于生产 Java 项目，或独立重复完整博客发布流程来作对比评估。</p>
+<p>下一步应针对真实任务验证：</p>
+<table>
+<thead>
+<tr>
+<th>验证维度</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正例触发</td>
+<td>请求审查订单接口时，是否选择代码审查 Skill</td>
+</tr>
+<tr>
+<td>反例触发</td>
+<td>只问事务概念时，是否避免进入仓库审查流程</td>
+</tr>
+<tr>
+<td>范围控制</td>
+<td>只要草稿时，是否不部署、不推送</td>
+</tr>
+<tr>
+<td>判断质量</td>
+<td>是否提供有效证据，而非机械罗列清单</td>
+</tr>
+<tr>
+<td>异常处理</td>
+<td>构建失败时，是否停止后续部署并说明原因</td>
+</tr>
+</tbody></table>
+<p>需要比较效果时，可以使用相同任务记录启用前后的结果，而不是用未经测量的“效率提高 80%”来描述收益。</p>
+<h2 id="8-写-Skill-时的注意点"><a href="#8-写-Skill-时的注意点" class="headerlink" title="8. 写 Skill 时的注意点"></a>8. 写 Skill 时的注意点</h2><h3 id="聚焦一个任务"><a href="#聚焦一个任务" class="headerlink" title="聚焦一个任务"></a>聚焦一个任务</h3><p>不要把代码审查、前端设计、论文写作和数据库运维塞进一个 Skill。职责越清楚，触发和维护越容易。</p>
+<h3 id="说明输入与输出"><a href="#说明输入与输出" class="headerlink" title="说明输入与输出"></a>说明输入与输出</h3><p>“审查代码”不够具体，应明确审查范围怎么确定、缺陷怎样给证据、结果怎样表达。</p>
+<h3 id="不让-Skill-擅自扩大授权"><a href="#不让-Skill-擅自扩大授权" class="headerlink" title="不让 Skill 擅自扩大授权"></a>不让 Skill 擅自扩大授权</h3><p>Skill 说明执行流程，不授予额外权限。读取代码、写草稿、发布页面、推送源码是不同动作，要根据用户当前请求和已有授权判断。</p>
+<h3 id="规则放在正确位置"><a href="#规则放在正确位置" class="headerlink" title="规则放在正确位置"></a>规则放在正确位置</h3><p>模型负责需要判断的工作；脚本负责可确定的机械检查。密码和 Token 放在合适的凭证管理环境中，不写进 SKILL.md、参考资料或下载包。</p>
+<h3 id="让参考资料真正按需加载"><a href="#让参考资料真正按需加载" class="headerlink" title="让参考资料真正按需加载"></a>让参考资料真正按需加载</h3><p>如果每次都读取所有 references，就失去了节约上下文的作用。在入口说明什么时候读取哪份资料。</p>
+<h3 id="检查脚本不会替代业务验证"><a href="#检查脚本不会替代业务验证" class="headerlink" title="检查脚本不会替代业务验证"></a>检查脚本不会替代业务验证</h3><p>检查通过只说明满足相应规则，不代表文章事实正确，也不代表系统没有缺陷。像越权、事务和幂等问题，需要真实上下文与针对性验证。</p>
+<h3 id="保持环境适配"><a href="#保持环境适配" class="headerlink" title="保持环境适配"></a>保持环境适配</h3><p>不要在可复用 Skill 中写死机器目录、GitHub 用户名、分支或构建方式。读取用户项目现有配置，缺少关键条件时明确说明。</p>
+<h2 id="9-面试中怎么讲？"><a href="#9-面试中怎么讲？" class="headerlink" title="9. 面试中怎么讲？"></a>9. 面试中怎么讲？</h2><p>完成示例后，应先亲自读懂文件，并至少运行一个实际任务，再把经验转化成自己的表达。</p>
+<p>可以这样概括：</p>
+<blockquote>
+<p>我最近做了两份 AI 辅助编写的 Skill 示例：Java 后端代码审查和 Hexo 技术博客写作发布。使用 SKILL.md 定义名称、触发范围和流程，把细节拆到 references，并用只读脚本校验文章格式。完成了元信息和脚本用例检查，目前还在真实任务中验证触发与效果。</p>
+</blockquote>
+<p>面试官继续追问时，可以围绕四点展开：</p>
+<ol>
+<li><strong>为什么写？</strong> 把重复工作中的关键步骤和领域规则沉淀下来。</li>
+<li><strong>如何组成？</strong> 必需的 SKILL.md，加上有实际用途的可选资源。</li>
+<li><strong>如何避免误用？</strong> 清晰 description、范围约束和执行授权。</li>
+<li><strong>如何验证？</strong> 格式检查、脚本测试，以及真实任务的正例与反例。</li>
+</ol>
+<p>如果只是运行一次示例，不应说“已经长期用于团队生产流程”。能够诚实说明设计、验证和限制，比背诵概念更有说服力。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://developers.openai.com/codex/skills/">OpenAI：Build skills</a>。Skill 目录、必需元信息、渐进式披露、本地发现与最佳实践。</li>
+<li>Codex 内置 skill-creator 指南。本文制作时用于指导任务范围、资源划分和验证设计；它是本地配套资源，具体内容可能随客户端版本变化。</li>
+</ol>
+<p>官方页面查阅日期：2026-10-09。示例由 AI 辅助编写与检查，面试经验应以自己的实际运行和理解为准。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://suxiao1228.github.io">苏晓</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://suxiao1228.github.io/2026/10/09/agent-skills-practice/">https://suxiao1228.github.io/2026/10/09/agent-skills-practice/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://suxiao1228.github.io" target="_blank">SU XIAO</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/bloglmage/tags/AI/">AI</a><a class="post-meta__tags" href="/bloglmage/tags/Agent/">Agent</a><a class="post-meta__tags" href="/bloglmage/tags/Skill/">Skill</a><a class="post-meta__tags" href="/bloglmage/tags/Codex/">Codex</a></div><div class="post-share"><div class="social-share" data-image="/bloglmage/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/bloglmage/2026/10/09/agent-harness/" title="什么是 Agent Harness？让大模型可靠完成任务的工程底座"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">什么是 Agent Harness？让大模型可靠完成任务的工程底座</div></div><div class="info-2"><div class="info-item-1">一个大模型能写代码，不代表它能独立完成一个软件项目。 让它修一个函数，可能只需要几轮对话；让它持续开发、运行测试、处理异常并跨会话继续工作，就会遇到另一类问题：它会忘记做到哪里，工具会超时，环境可能被改坏，也可能没有充分验证就宣布任务完成。 解决这些问题，除了模型能力，还需要模型周围的工程系统。这就是本文讨论的 Agent Harness。   1. Harness 到底是什么？Harness 原意有“挽具、约束装置”等含义。在软件领域，也能指运行和测试某个组件的支撑环境，例如 Test Harness。 本文讨论的是 AI Agent 语境中的 Harness，不是同名的持续交付平台。这个术语目前没有完全统一的边界，不同团队可能把 SDK、运行时或一套完整的 Agent 执行环境称为 Harness。 可以用下面的定义理解它：  Agent Harness...</div></div></div></a><a class="pagination-related" href="/bloglmage/2026/08/01/%E4%BB%80%E4%B9%88%E6%98%AFAgent/" title="什么是 Agent？从大模型到自主行动系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">什么是 Agent？从大模型到自主行动系统</div></div><div class="info-2"><div class="info-item-1">最近两年，Agent 几乎成为了 AI 领域最热门的词之一。 有人把能够调用工具的大模型称为 Agent，有人认为只有可以长期自主运行的系统才算 Agent，还有人把一套固定的自动化流程也叫作 Agent。概念越来越多，反而容易让人忽略它最核心的特征。 这篇文章尝试从工程视角回答一个基础问题：什么是 Agent？   一句话理解 Agent AI Agent 是一个能够围绕目标持续观察环境、进行推理和规划、调用工具采取行动，并根据执行结果调整下一步策略的系统。  普通大模型主要完成的是“输入问题，生成回答”。 Agent 关注的则是“为了完成目标，接下来应该做什么”。它不仅产生文本，还可以查询资料、读取文件、调用接口、执行代码、操作数据库，甚至与其他 Agent 协作。 因此，可以把大模型看作 Agent 的“大脑”，但只有大脑还不等于一个完整的 Agent。 大模型和 Agent 有什么区别？假设我们提出一个目标：  分析线上接口变慢的原因，并给出修复建议。  普通大模型只能根据提示中已有的信息进行分析。如果没有日志、监控数据和代码，它只能给出通用建议。 Agent...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/bloglmage/2026/08/01/%E4%BB%80%E4%B9%88%E6%98%AFAgent/" title="什么是 Agent？从大模型到自主行动系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-01</div><div class="info-item-2">什么是 Agent？从大模型到自主行动系统</div></div><div class="info-2"><div class="info-item-1">最近两年，Agent 几乎成为了 AI 领域最热门的词之一。 有人把能够调用工具的大模型称为 Agent，有人认为只有可以长期自主运行的系统才算 Agent，还有人把一套固定的自动化流程也叫作 Agent。概念越来越多，反而容易让人忽略它最核心的特征。 这篇文章尝试从工程视角回答一个基础问题：什么是 Agent？   一句话理解 Agent AI Agent 是一个能够围绕目标持续观察环境、进行推理和规划、调用工具采取行动，并根据执行结果调整下一步策略的系统。  普通大模型主要完成的是“输入问题，生成回答”。 Agent 关注的则是“为了完成目标，接下来应该做什么”。它不仅产生文本，还可以查询资料、读取文件、调用接口、执行代码、操作数据库，甚至与其他 Agent 协作。 因此，可以把大模型看作 Agent 的“大脑”，但只有大脑还不等于一个完整的 Agent。 大模型和 Agent 有什么区别？假设我们提出一个目标：  分析线上接口变慢的原因，并给出修复建议。  普通大模型只能根据提示中已有的信息进行分析。如果没有日志、监控数据和代码，它只能给出通用建议。 Agent...</div></div></div></a><a class="pagination-related" href="/bloglmage/2026/10/09/agent-harness/" title="什么是 Agent Harness？让大模型可靠完成任务的工程底座"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-09</div><div class="info-item-2">什么是 Agent Harness？让大模型可靠完成任务的工程底座</div></div><div class="info-2"><div class="info-item-1">一个大模型能写代码，不代表它能独立完成一个软件项目。 让它修一个函数，可能只需要几轮对话；让它持续开发、运行测试、处理异常并跨会话继续工作，就会遇到另一类问题：它会忘记做到哪里，工具会超时，环境可能被改坏，也可能没有充分验证就宣布任务完成。 解决这些问题，除了模型能力，还需要模型周围的工程系统。这就是本文讨论的 Agent Harness。   1. Harness 到底是什么？Harness 原意有“挽具、约束装置”等含义。在软件领域，也能指运行和测试某个组件的支撑环境，例如 Test Harness。 本文讨论的是 AI Agent 语境中的 Harness，不是同名的持续交付平台。这个术语目前没有完全统一的边界，不同团队可能把 SDK、运行时或一套完整的 Agent 执行环境称为 Harness。 可以用下面的定义理解它：  Agent Harness...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/bloglmage/img/avatar.jpg" onerror="this.onerror=null;this.src='/bloglmage/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">苏晓</div><div class="author-info-description">XUPT 软件工程 · 后端工程</div><div class="site-data"><a href="/bloglmage/archives/"><div class="headline">文章</div><div class="length-num">36</div></a><a href="/bloglmage/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/bloglmage/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Keep building. Keep writing.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Skill-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">1. Skill 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Skill-%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-number">2.</span> <span class="toc-text">2. Skill 的组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#YAML-%E5%85%83%E4%BF%A1%E6%81%AF%EF%BC%9A%E5%86%B3%E5%AE%9A%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">YAML 元信息：决定什么时候考虑使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Markdown-%E6%AD%A3%E6%96%87%EF%BC%9A%E6%8C%87%E5%AF%BC%E6%80%8E%E4%B9%88%E5%81%9A"><span class="toc-number">2.2.</span> <span class="toc-text">Markdown 正文：指导怎么做</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B8%90%E8%BF%9B%E5%BC%8F%E6%8A%AB%E9%9C%B2%EF%BC%9A%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD"><span class="toc-number">3.</span> <span class="toc-text">3. 渐进式披露：按需加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%A4%BA%E4%BE%8B%E4%B8%80%EF%BC%9AJava-%E5%90%8E%E7%AB%AF%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5"><span class="toc-number">4.</span> <span class="toc-text">4. 示例一：Java 后端代码审查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">解决什么问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">4.2.</span> <span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4-SKILL-md"><span class="toc-number">4.3.</span> <span class="toc-text">完整 SKILL.md</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#references-%E4%B8%AD%E5%86%99%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.4.</span> <span class="toc-text">references 中写什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">4.5.</span> <span class="toc-text">使用示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%A4%BA%E4%BE%8B%E4%BA%8C%EF%BC%9AHexo-%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2%E5%86%99%E4%BD%9C%E4%B8%8E%E5%8F%91%E5%B8%83"><span class="toc-number">5.</span> <span class="toc-text">5. 示例二：Hexo 技术博客写作与发布</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F-1"><span class="toc-number">5.1.</span> <span class="toc-text">解决什么问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-1"><span class="toc-number">5.2.</span> <span class="toc-text">目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4-SKILL-md-1"><span class="toc-number">5.3.</span> <span class="toc-text">完整 SKILL.md</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%99%84%E5%B8%A6%E8%84%9A%E6%9C%AC%EF%BC%9F"><span class="toc-number">5.4.</span> <span class="toc-text">为什么附带脚本？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-1"><span class="toc-number">5.5.</span> <span class="toc-text">使用示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-number">6.</span> <span class="toc-text">6. 下载与安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%9C%AC%E6%AC%A1%E5%81%9A%E4%BA%86%E5%93%AA%E4%BA%9B%E9%AA%8C%E8%AF%81%EF%BC%9F"><span class="toc-number">7.</span> <span class="toc-text">7. 本次做了哪些验证？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%86%99-Skill-%E6%97%B6%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">8.</span> <span class="toc-text">8. 写 Skill 时的注意点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E7%84%A6%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1"><span class="toc-number">8.1.</span> <span class="toc-text">聚焦一个任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA"><span class="toc-number">8.2.</span> <span class="toc-text">说明输入与输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E8%AE%A9-Skill-%E6%93%85%E8%87%AA%E6%89%A9%E5%A4%A7%E6%8E%88%E6%9D%83"><span class="toc-number">8.3.</span> <span class="toc-text">不让 Skill 擅自扩大授权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E6%94%BE%E5%9C%A8%E6%AD%A3%E7%A1%AE%E4%BD%8D%E7%BD%AE"><span class="toc-number">8.4.</span> <span class="toc-text">规则放在正确位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A9%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%E7%9C%9F%E6%AD%A3%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD"><span class="toc-number">8.5.</span> <span class="toc-text">让参考资料真正按需加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E8%84%9A%E6%9C%AC%E4%B8%8D%E4%BC%9A%E6%9B%BF%E4%BB%A3%E4%B8%9A%E5%8A%A1%E9%AA%8C%E8%AF%81"><span class="toc-number">8.6.</span> <span class="toc-text">检查脚本不会替代业务验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E6%8C%81%E7%8E%AF%E5%A2%83%E9%80%82%E9%85%8D"><span class="toc-number">8.7.</span> <span class="toc-text">保持环境适配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%9D%A2%E8%AF%95%E4%B8%AD%E6%80%8E%E4%B9%88%E8%AE%B2%EF%BC%9F"><span class="toc-number">9.</span> <span class="toc-text">9. 面试中怎么讲？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">10.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloglmage/2026/10/09/agent-harness/" title="什么是 Agent Harness？让大模型可靠完成任务的工程底座">什么是 Agent Harness？让大模型可靠完成任务的工程底座</a><time datetime="2026-10-08T16:00:00.000Z" title="发表于 2026-10-09 00:00:00">2026-10-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloglmage/2026/10/09/agent-skills-practice/" title="从零写两份 Agent Skill：Java 代码审查与 Hexo 博客发布">从零写两份 Agent Skill：Java 代码审查与 Hexo 博客发布</a><time datetime="2026-10-08T16:00:00.000Z" title="发表于 2026-10-09 00:00:00">2026-10-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloglmage/2026/08/01/%E4%BB%80%E4%B9%88%E6%98%AFAgent/" title="什么是 Agent？从大模型到自主行动系统">什么是 Agent？从大模型到自主行动系统</a><time datetime="2026-08-01T02:30:00.000Z" title="发表于 2026-08-01 10:30:00">2026-08-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloglmage/2026/04/08/%E6%89%8B%E5%8A%A8%E5%8F%91%E5%B8%83%E6%B5%8B%E8%AF%95/" title="手动发布测试">手动发布测试</a><time datetime="2026-04-08T14:15:12.000Z" title="发表于 2026-04-08 22:15:12">2026-04-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/bloglmage/2025/06/22/gossip/" title="Gossip">Gossip</a><time datetime="2025-06-22T13:21:57.164Z" title="发表于 2025-06-22 21:21:57">2025-06-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By 苏晓</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/bloglmage/js/utils.js"></script><script src="/bloglmage/js/main.js"></script><div class="js-pjax"></div><script src="/bloglmage/js/hero-profile.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
